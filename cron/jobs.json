@@ -1,0 +1,62 @@
+{
+  "jobs": [
+    {
+      "id": "4f302835397c",
+      "name": "AI Daily News",
+      "prompt": "تو یک دایجست خام اخبار هوش مصنوعی (خروجی اسکریپت ai_news_collect.py که به عنوان context به این پرامپت الصاق شده) دریافت میکنی. وظیفهات: تبدیل آن به یک خبرنامه فارسی روزانه، مختصر و مفید، مناسب تلگرام.\n\nساختار خروجی (فارسی، راست به چپ):\n\n1) مهمترین خبرهای ۲۴ ساعت گذشته (مدلها و دنیای هوش مصنوعی)\nهر خبر: تیتر، خلاصه ۱ تا ۲ خطی، لینک منبع.\n\n2) مدلهای جدید (اپنسورس و تجاری)\nنام، سازنده، نکته مهم، لینک (ترجیحا Hugging Face یا بلاگ رسمی).\n\n3) بنچمارکها و نتایج جدید\nبا web_search بررسی کن آیا در پنجره زمانی این دایجست (بخش window در بالای دایجست) نتیجه جدیدی از این منابع منتشر شده:\n- Artificial Analysis: https://artificialanalysis.ai/leaderboards/models\n- LMArena: https://lmarena.ai/leaderboard\n- SWE-bench: https://www.swebench.com/\n- Vals AI: https://www.vals.ai/\n- Open LLM Leaderboard: https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard\n- ARC Prize: https://arcprize.org/leaderboard\nفقط نتایج واقعا جدید را با لینک بیاور؛ اگر چیزی نیست صادقانه بنویس: نتیجه جدیدی منتشر نشده.\n\n4) آپدیت ارائهدهندههای مدل رایگان\nتغییرات مدلهای رایگان و سطحهای رایگان این ارائهدهندهها را با web_search راستیآزمایی کن و فقط تغییر واقعی را گزارش بده:\n- OpenRouter (تغییرات کاتالوگ رایگان داخل دایجست هست، بخش free-models)\n- Google AI Studio / Gemini API: https://ai.google.dev/gemini-api/docs/pricing\n- Groq: https://console.groq.com/docs/rate-limits\n- Cerebras: https://inference-docs.cerebras.ai/support/pricing\n- Mistral: https://docs.mistral.ai/deployment/laplateforme/tier/\n- Cloudflare Workers AI: https://developers.cloudflare.com/workers-ai/platform/pricing/\n- GitHub Models: https://docs.github.com/en/github-models/about-github-models\n- NVIDIA NIM: https://build.nvidia.com/\n- Hugging Face: https://huggingface.co/docs/inference-providers/pricing\n- Together AI: https://www.together.ai/pricing\n- Chutes، OpenAI free tier، Anthropic free tier، xAI، DeepSeek، Qwen، Z.ai، Moonshot\nاگر تغییری ندیدی، همین یک خط که تغییر معناداری نداشتند کافی است.\n\n5) منابع خبری\nهمه لینکهای استفادهشده، دستهبندی شده (رسانهها / بلاگهای رسمی / جامعه)، تا کاربر برای خواندن خبر کامل برود.\n\nقوانین:\n- کل خروجی فارسی باشد؛ نام مدلها و اصطلاحات فنی انگلیسی بماند.\n- هر خبر باید لینک منبع داشته باشد.\n- اگر بخش [source-health] دایجست خطای منبعی را نشان میدهد، آن را به عنوان شکاف پوشش اعلام کن و هرگز نگو خبری نبود.\n- پستهای بخش community (Reddit) را فقط اگر واقعا مهماند (مدل جدید، ابزار کاربردی، دستاورد قابل توجه) بیاور؛ بحث و میم را حذف کن.\n- تبلیغات (مثلا پاسهای کنفرانس TechCrunch) را حذف کن.\n- خروجی فشرده ولی کامل؛ حداکثر حدود ۶۰ تا ۸۰ خط.",
+      "skills": [],
+      "skill": null,
+      "model": "Cline-V1",
+      "provider": "custom",
+      "base_url": null,
+      "script": "ai_news_collect.py",
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 11 * * *",
+        "display": "0 11 * * *"
+      },
+      "schedule_display": "0 11 * * *",
+      "repeat": {
+        "times": null,
+        "completed": 11
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-10-03T21:17:05.378711+03:30",
+      "next_run_at": "2026-10-14T11:00:00+03:30",
+      "last_run_at": "2026-10-13T11:00:24.921770+03:30",
+      "last_status": "blocked_config",
+      "last_error": "[blocked_config:silent] provider credential missing: provider 'custom' resolved without credentials (no endpoint or API key configured). If this is a named custom provider, use its real name (see providers: in config.yaml). [profile 'default', HERMES_HOME /data/.hermes]. Set the provider API key in .env (or `hermes setup`) for that home, or pin a working provider via `hermes cron edit 4f302835397c --provider <p>`.",
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 11,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "52844751",
+        "chat_name": "Arash",
+        "thread_id": null,
+        "user_id": "52844751",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "fire_claim": null,
+      "last_dispatch": {
+        "scheduled_at": "2026-10-13T11:00:00+03:30",
+        "dispatched_at": "2026-10-13T11:00:19.132311+03:30",
+        "lateness_seconds": 19.1,
+        "kind": "on_time"
+      },
+      "preflight_alerted": true
+    }
+  ],
+  "updated_at": "2026-10-13T11:00:24.925035+03:30"
+}

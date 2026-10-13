@@ -1,0 +1,245 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2cm,top=2.2cm,bottom=2cm,footskip=0.75cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{fontspec}
+\usepackage{xepersian}
+\settextfont{Noto Naskh Arabic}[Scale=1.0]
+\usepackage{lastpage}
+
+\definecolor{seccol}{RGB}{31,78,121}
+\definecolor{hdrcol}{RGB}{220,230,241}
+\definecolor{boxgrn}{RGB}{141,179,107}
+\definecolor{boxgrnbg}{RGB}{232,240,227}
+\definecolor{boxgld}{RGB}{224,180,76}
+\definecolor{boxgldbg}{RGB}{255,244,218}
+
+\linespread{1.35}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\makeatletter
+\def\ps@plain{\let\@mkboth\@gobbletwo
+  \def\@oddfoot{\hfil{\lr{\thepage\ /\ \pageref{LastPage}}}\hfil}\let\@evenfoot\@oddfoot
+  \def\@oddhead{}\let\@evenhead\@oddhead}
+\makeatother
+\pagestyle{plain}
+
+\newcommand{\sechead}[1]{%
+  \vspace{4pt}{\large\bfseries\color{seccol}#1\par}%
+  \vspace{1pt}{\color{seccol}\hrule height 1pt}\vspace{6pt}}
+
+\newcommand{\greenres}[1]{%
+  \par\medskip\noindent
+  \fcolorbox{boxgrn}{boxgrnbg}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      \centering #1}}\par\medskip}
+
+\renewcommand{\theequation}{\arabic{equation}}
+
+\newenvironment{stepbox}{%
+  \par\medskip\hrule\vspace{4pt}%
+}{%
+  \vspace{4pt}\hrule\par\medskip
+}
+
+\begin{document}
+
+\begin{center}
+{\huge\bfseries گزارش محاسبات فنی\par}
+\vspace{6pt}
+{\LARGE\bfseries محاسبه طول گیرایی و طول وصله پوششی میلگردهای آجدار در کشش\par}
+\vspace{10pt}
+{\large پروژه: شهرزاد\par}
+{\large شرکت گسترش پروژه شهرزاد\par}
+\end{center}
+
+\vspace{8pt}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{|c|X|}
+\hline
+\cellcolor{hdrcol}\textbf{مرجع آیین‌نامه‌ای} & مطابق مبحث نهم مقررات ملی ساختمان (طرح و اجرای ساختمان‌های بتن آرمه) ــ ویرایش ۱۳۹۹ \\
+\hline
+\cellcolor{hdrcol}\textbf{موضوع محاسبه} & طول گیرایی میلگرد آجدار در کشش و طول وصله پوششی نوع \lr{B} \\
+\hline
+\cellcolor{hdrcol}\textbf{مقاومت فشاری مشخصه بتن} & $f'_c = 35\ \mathrm{MPa}$ \\
+\hline
+\cellcolor{hdrcol}\textbf{تنش تسلیم میلگرد} & $f_y = 400\ \mathrm{MPa}$، فولاد رده \lr{A3} \\
+\hline
+\cellcolor{hdrcol}\textbf{قطرهای بررسی‌شده} & $\phi 16$، $\phi 18$، $\phi 20$ و $\phi 25$ \\
+\hline
+\end{tabularx}
+\end{center}
+
+\vspace{6pt}
+\begin{center}
+{\small این گزارش بر مبنای فرضیات و مقادیر درج‌شده در محاسبات ارائه‌شده تنظیم شده است.\par}
+{\small ۲۰ مهر ۱۴۰۵\par}
+\end{center}
+
+\newpage
+\sechead{۱. مبانی و روابط آیین‌نامه‌ای}
+
+محاسبات طول گیرایی میلگردهای آجدار در کشش بر اساس رابطه \lr{9-12-1} و ضوابط فصل \lr{9-12} مبحث نهم، ویرایش \lr{1399} تنظیم شده است. در این گزارش، اثر آرماتور عرضی با فرض ساده‌سازانه $K_{tr} = 0$ منظور شده است.
+
+\subsection*{۱.۱. رابطه طول گیرایی}
+\begin{equation}
+l_d = \frac{0.9 f_y \psi_t \psi_e \psi_s \psi_g}{\lambda \sqrt{f'_c}} \times \frac{d_b}{\frac{c_b+K_{tr}}{d_b}}
+\end{equation}
+با رعایت محدودیت‌های زیر:
+\begin{equation}
+\frac{c_b+K_{tr}}{d_b} \leq 2.5,\quad l_d \geq 300\ \mathrm{mm},\quad \sqrt{f'_c} \leq 8.3\ \mathrm{MPa}
+\end{equation}
+در این رابطه $d_b$ قطر میلگرد، $c_b$ کوچک‌ترِ فاصله مرکز میلگرد تا نزدیک‌ترین سطح بتن یا نصف فاصله مرکز تا مرکز میلگردهای مهارشونده، و $K_{tr}$ شاخص آرماتور عرضی است.
+
+\subsection*{۱.۲. ضرایب و مقادیر مبنا}
+\begin{center}
+\begin{tabularx}{\linewidth}{|c|c|X|}
+\hline
+\rowcolor{hdrcol}\textbf{پارامتر} & \textbf{مقدار} & \textbf{توضیح} \\
+\hline
+$f'_c$ & $35\ \mathrm{MPa}$ & مقاومت فشاری مشخصه بتن \\
+\hline
+$f_y$ & $400\ \mathrm{MPa}$ & تنش تسلیم فولاد \\
+\hline
+$\sqrt{f'_c}$ & $5.916$ & کمتر از حد مجاز $8.3\ \mathrm{MPa}$ \\
+\hline
+$\lambda$ & $1.0$ & بتن معمولی \\
+\hline
+$\psi_t$ & $1.0$ & ضریب موقعیت میلگرد \\
+\hline
+$\psi_e$ & $1.0$ & میلگرد بدون پوشش اپوکسی؛ با فرض ارائه‌شده در محاسبات \\
+\hline
+$\psi_g$ & $1.0$ & فولاد با $f_y \leq 420\ \mathrm{MPa}$ \\
+\hline
+$\psi_s$ & $0.8$ برای $\phi 16$ و $\phi 18$؛ $1.0$ برای $\phi 20$ و $\phi 25$ & ضریب اندازه میلگرد مطابق جدول مورد استناد در گزارش مبنا \\
+\hline
+$K_{tr}$ & $0$ & ساده‌سازی محافظه‌کارانه \\
+\hline
+|$c_b$ & $40\ \mathrm{mm}$ برای $\phi 25$ (در راستای اطمینان)؛ $48$، $49$ و $50\ \mathrm{mm}$ برای $\phi 16$، $\phi 18$ و $\phi 20$ (کاور $40\ \mathrm{mm}$ به‌علاوه نصف قطر) & مقدار $c_b$ برای هر قطر: برای $\phi 25$ نصف فاصله مرکز تا مرکز میلگردها حاکم است و در اجرا $40\ \mathrm{mm}$ است؛ برای سایر قطرها فاصله مرکز میلگرد تا نزدیک‌ترین سطح بتن حاکم است و با فرض کاور $40\ \mathrm{mm}$ برابر کاور به‌علاوه نصف قطر میلگرد در نظر گرفته شده است \\
+\hline
+\end{tabularx}
+\end{center}
+
+\subsection*{۱.۳. کنترل ضریب پوشش و موقعیت}
+\begin{equation}
+\psi_t \psi_e = 1.0 \times 1.0 = 1.0 \leq 1.7 \quad \checkmark
+\end{equation}
+همچنین:
+\begin{equation}
+\sqrt{35} = 5.91 \leq 8.3\ \mathrm{MPa} \quad \checkmark
+\end{equation}
+
+\sechead{۲. محاسبه طول گیرایی برای قطرهای مختلف}
+
+برای هر قطر، با جایگذاری $K_{tr} = 0$ و مقدار $c_b$ متناظر همان قطر، نسبت کنترل برابر است با:
+\begin{equation}
+\frac{c_b+K_{tr}}{d_b} = \frac{c_b+0}{d_b} \leq 2.5
+\end{equation}
+که در آن $c_b$ برای $\phi 16$ برابر $48\ \mathrm{mm}$، برای $\phi 18$ برابر $49\ \mathrm{mm}$، برای $\phi 20$ برابر $50\ \mathrm{mm}$ و برای $\phi 25$ برابر $40\ \mathrm{mm}$ است. نسبت‌های بزرگ‌تر از $2.5$ مطابق آیین‌نامه در سقف $2.5$ لحاظ می‌شوند.
+
+\subsection*{۲.۱. نمونه محاسبه برای میلگرد ۱۶}
+\begin{stepbox}
+$c_b = 48\ \mathrm{mm}$ (کاور $40\ \mathrm{mm}$ به‌علاوه نصف قطر)
+\begin{equation*}
+\frac{c_b+K_{tr}}{d_b} = \frac{48+0}{16} = 3.00 \to 2.5 \quad \checkmark
+\end{equation*}
+\begin{equation*}
+\psi_s = 0.8 \quad (d_b \leq 19\ \mathrm{mm})
+\end{equation*}
+\begin{equation*}
+\frac{l_d}{d_b} = \frac{0.9 \times 400 \times 1.0 \times 1.0 \times 0.8 \times 1.0}{1.0 \times 5.916 \times 2.500} = 19.47
+\end{equation*}
+\begin{equation*}
+l_d = 19.47 \times 16 = 311.6\ \mathrm{mm} \geq 300\ \mathrm{mm} \quad \checkmark
+\end{equation*}
+\end{stepbox}
+\greenres{$l_d = 320\ \mathrm{mm}$ (گردشده به بالا، مضرب ۱۰ میلی‌متر)}
+
+\subsection*{۲.۲. نتایج محاسبات}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\rowcolor{hdrcol}\textbf{قطر میلگرد} & \textbf{$(c_b+K_{tr})/d_b$} & \textbf{$\psi_s$} & \textbf{$l_d$ محاسباتی} & \textbf{$l_d$ نهایی} \\
+\hline
+$\phi 16$ & \lr{3.00 $\to$ 2.5} & \lr{0.8} & \lr{311.6} & \lr{320} \\
+\hline
+$\phi 18$ & \lr{2.72 $\to$ 2.5} & \lr{0.8} & \lr{350.5} & \lr{360} \\
+\hline
+$\phi 20$ & \lr{2.50} & \lr{1.0} & \lr{486.8} & \lr{490} \\
+\hline
+$\phi 25$ & \lr{1.60} & \lr{1.0} & \lr{950.8} & \lr{960} \\
+\hline
+\end{tabular}
+\end{center}
+نسبت‌های بزرگ‌تر از \lr{2.5} در سقف \lr{2.5} لحاظ شده‌اند؛ تمام نسبت‌ها در محدوده مجاز حداکثر \lr{2.5} قرار دارند و طول‌های نهایی از حداقل $300\ \mathrm{mm}$ کمتر نیستند.
+
+\sechead{۳. محاسبه طول وصله پوششی در کشش}
+
+بر اساس بند \lr{2-4-12-9}، طول وصله پوششی میلگردهای آجدار در کشش برای وصله نوع \lr{B} برابر $1.3 l_d$ و حداقل $300\ \mathrm{mm}$ در نظر گرفته شده است. بنابراین:
+\begin{equation}
+l_s = \max(1.3 l_d,\ 300\ \mathrm{mm})
+\end{equation}
+با توجه به توضیح گزارش مبنا، چون در ستون‌ها معمولاً بیش از \lr{50} درصد میلگردها در یک مقطع وصله می‌شوند، وصله نوع \lr{B} مبنای محاسبه قرار گرفته است.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\rowcolor{hdrcol}\textbf{قطر میلگرد} & \textbf{$l_d$ محاسباتی} & \textbf{$1.3 l_d$} & \textbf{طول وصله نهایی} \\
+\hline
+$\phi 16$ & \lr{311.6} & \lr{405.1} & \lr{410} \\
+\hline
+$\phi 18$ & \lr{350.5} & \lr{455.7} & \lr{460} \\
+\hline
+$\phi 20$ & \lr{486.8} & \lr{632.9} & \lr{640} \\
+\hline
+$\phi 25$ & \lr{950.8} & \lr{1236.0} & \lr{1240} \\
+\hline
+\end{tabular}
+\end{center}
+مقادیر نهایی جدول مطابق گزارش مبنا به سمت بالا گرد شده‌اند.
+
+\sechead{۴. کنترل فرض $c_b = 40\ \mathrm{mm}$}
+
+طبق تعریف $c_b$، این مقدار برابر کوچک‌ترِ فاصله مرکز میلگرد تا نزدیک‌ترین سطح بتن و نصف فاصله مرکز تا مرکز میلگردهای مهارشونده است. با توجه به چینش میلگردها، برای میلگردهای $\phi 16$، $\phi 18$ و $\phi 20$ نصف فاصله مرکز تا مرکز میلگردهای مهارشونده حاکم نیست و فاصله مرکز میلگرد تا نزدیک‌ترین سطح بتن حاکم است؛ تنها برای میلگرد $\phi 25$ فاصله مرکز تا مرکز میلگردهای مهارشونده حاکم است. برای معتبر بودن فرض $c_b = 40\ \mathrm{mm}$، شرط زیر باید برقرار باشد:
+\begin{equation}
+\frac{s_{cc}}{2} = \frac{s_{clear}+d_b}{2} \geq 40\ \mathrm{mm} \Rightarrow s_{clear} \geq 80 - d_b
+\end{equation}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor{hdrcol}\textbf{قطر میلگرد} & \textbf{حداقل فاصله آزاد متناظر} \\
+\hline
+$\phi 16$ & \lr{64} \\
+\hline
+$\phi 18$ & \lr{62} \\
+\hline
+$\phi 20$ & \lr{60} \\
+\hline
+$\phi 25$ & \lr{55} \\
+\hline
+\end{tabular}
+\end{center}
+
+\sechead{۵. جمع‌بندی نهایی}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\rowcolor{hdrcol}\textbf{قطر میلگرد} & \textbf{طول گیرایی نهایی} & \textbf{طول وصله نوع \lr{B}} \\
+\hline
+$\phi 16$ & \lr{320} & \lr{410} \\
+\hline
+$\phi 18$ & \lr{360} & \lr{460} \\
+\hline
+$\phi 20$ & \lr{490} & \lr{640} \\
+\hline
+$\phi 25$ & \lr{960} & \lr{1240} \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
